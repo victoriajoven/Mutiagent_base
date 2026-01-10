@@ -1,0 +1,7 @@
+integrate_mission_plan:
+  description: >
+    Combine rover and drone plans into a final coordinated Mars
+    exploration mission plan.
+  expected_output: >
+    A comprehensive mission strategy detailing all vehicle actions.
+  agent: mission_integrator

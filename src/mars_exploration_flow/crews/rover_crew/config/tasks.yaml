@@ -1,0 +1,7 @@
+plan_rover_operations:
+  description: >
+    Generate a detailed rover operation plan considering terrain,
+    mission priorities, rover capabilities, and known hazards.
+  expected_output: >
+    A structured rover plan including assigned tasks and paths.
+  agent: rover_planner

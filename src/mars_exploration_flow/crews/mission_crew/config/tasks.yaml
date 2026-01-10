@@ -1,0 +1,9 @@
+analyze_mission:
+  description: >
+    Analyze the Mars mission report provided as a Markdown file and
+    extract scientific goals, operational constraints, mission
+    priorities, and known hazards.
+  expected_output: >
+    A structured analysis of the mission including goals, constraints,
+    priorities, and hazards.
+  agent: mission_analyst

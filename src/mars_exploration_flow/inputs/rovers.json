@@ -1,0 +1,9 @@
+[
+  {
+    "id": "rover_1",
+    "location": "N1",
+    "energy": 100,
+    "speed": 2,
+    "terrain_compatibility": ["rocky", "sandy"]
+  }
+]

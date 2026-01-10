@@ -1,0 +1,7 @@
+plan_drone_missions:
+  description: >
+    Design drone flight plans for aerial surveys considering range,
+    altitude constraints, and mission priorities.
+  expected_output: >
+    A structured drone flight plan with survey areas and schedules.
+  agent: drone_planner

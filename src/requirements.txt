@@ -1,0 +1,4 @@
+crewai
+LiteLLM
+litellm[proxy]
+fastapi

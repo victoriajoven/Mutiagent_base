@@ -1,0 +1,9 @@
+[
+  {
+    "id": "drone_1",
+    "location": "N5",
+    "range": 50,
+    "altitude": 100,
+    "camera_resolution": "HD"
+  }
+]
