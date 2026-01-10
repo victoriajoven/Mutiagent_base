@@ -15,7 +15,6 @@ def main():
     print("🚀 Starting Mars Exploration Multi-Agent System...")
 
     flow = MarsMissionFlow()
-    #flow.run()
     flow.kickoff()
 
     print("✅ Mars mission planning completed.")

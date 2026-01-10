@@ -1,7 +1,13 @@
 integrate_mission_plan:
   description: >
-    Combine rover and drone plans into a final coordinated Mars
-    exploration mission plan.
+    Combine this rover plan: {rover_plan} and drone plans: {drone_plan} with this mission analysis as base: {mission_analysis}
+    IMPORTANT:
+    - Your response MUST be valid JSON
+    - All numeric fields MUST contain final numeric values
+    - DO NOT include formulas, variables, or function calls
+    - DO NOT explain calculations
+    - DO NOT include text outside the JSON object
+    If a value must be estimated, provide a reasonable numeric estimate.
   expected_output: >
-    A comprehensive mission strategy detailing all vehicle actions.
+    A comprehensive mission strategy detailing all vehicle actions as a JSON object matching the using FinalMissionPlanOutput schema
   agent: mission_integrator

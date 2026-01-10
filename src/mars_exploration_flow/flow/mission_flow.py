@@ -3,6 +3,8 @@ from mars_exploration_flow.crews.mission_crew.mission_crew import MissionCrew
 from mars_exploration_flow.crews.rover_crew.rover_crew import RoverCrew
 from mars_exploration_flow.crews.drone_crew.drone_crew import DroneCrew
 from mars_exploration_flow.crews.integration_crew.integration_crew import IntegrationCrew
+from mars_exploration_flow.tools.mission_files_tool import MissionFiles
+
 
 class MarsMissionFlow(Flow):
     """
@@ -16,46 +18,30 @@ class MarsMissionFlow(Flow):
     @start()
     def run_mission_crew(self):
         print("🛰️ Running Mission Crew...")
-        with open("src/mars_exploration_flow/inputs/mission_report.md", "r") as f:
-            mission_text = f.read()
-        MissionCrew().crew().kickoff(inputs={"mission_report": mission_text})
+        MissionCrew().crew().kickoff(
+            inputs={"mission_report": MissionFiles.get_mission_report()})
         return "mission_analysis_completed"
 
     @listen(run_mission_crew)
     def run_rover_crew(self, _):
         print("🚙 Running Rover Crew...")
-        with open("src/mars_exploration_flow/inputs/rovers.json", "r") as f:
-            rovers = f.read()
-        with open("src/mars_exploration_flow/inputs/mars_map.graphml", "r") as f:
-            terrain = f.read()
-        RoverCrew().crew().kickoff(inputs={
-            "rovers": rovers,
-            "mars_map": terrain,
-            "mission_analysis_file": "src/mars_exploration_flow/outputs/mission_analysis.md"
-        })
+        RoverCrew().crew().kickoff(inputs={"rovers": MissionFiles.get_rovers(
+        ), "mission_analysis_file": MissionFiles.get_mission_analysis()})
         return "rover_planning_completed"
 
     @listen(run_mission_crew)
     def run_drone_crew(self, _):
         print("🚁 Running Drone Crew...")
-        with open("src/mars_exploration_flow/inputs/drones.json", "r") as f:
-            drones = f.read()
-        with open("src/mars_exploration_flow/inputs/mars_map.graphml", "r") as f:
-            terrain = f.read()
-        DroneCrew().crew().kickoff(inputs={
-            "drones": drones,
-            "mars_map": terrain,
-            "mission_analysis_file": "src/mars_exploration_flow/outputs/mission_analysis.md"
-        })
+        DroneCrew().crew().kickoff(inputs={"drones": MissionFiles.get_drones(
+        ), "mission_analysis_file": MissionFiles.get_mission_analysis()})
         return "drone_planning_completed"
 
     @listen(run_rover_crew)
     @listen(run_drone_crew)
     def run_integration_crew(self, _):
         print("🧩 Running Integration Crew...")
-        IntegrationCrew().crew().kickoff(inputs={
-            "rover_plan_file": "src/mars_exploration_flow/outputs/rover_plan.md",
-            "drone_plan_file": "src/mars_exploration_flow/outputs/drone_plan.md",
-            "mission_analysis_file": "src/mars_exploration_flow/outputs/mission_analysis.md"
-        })
+        IntegrationCrew().crew().kickoff(inputs={"mission_analysis": MissionFiles.get_mission_analysis(),
+                                                 "rover_plan": MissionFiles.get_rover_plan(),
+                                                 "drone_plan": MissionFiles.get_drone_plan()
+                                                 },)
         return "mission_integration_completed"

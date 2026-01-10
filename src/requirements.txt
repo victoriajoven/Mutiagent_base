@@ -2,3 +2,4 @@ crewai
 LiteLLM
 litellm[proxy]
 fastapi
+crewai[tools]

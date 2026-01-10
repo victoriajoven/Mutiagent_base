@@ -1,7 +1,13 @@
 plan_rover_operations:
   description: >
-    Generate a detailed rover operation plan considering terrain,
-    mission priorities, rover capabilities, and known hazards.
+    Generate a detailed rover operation plan considering this list of rovers {rovers}.
+    Its fundamental evaluation of {mission_analysis_file}
+    IMPORTANT:
+    - Your response MUST be valid JSON
+    - Do NOT include explanations, comments, or markdown
+    - Do NOT include text outside the JSON object
+    - The JSON MUST strictly follow the RoverPlanOutput schema
+
   expected_output: >
-    A structured rover plan including assigned tasks and paths.
+    A structured rover plan including assigned tasks and paths as a JSON object matching the RoverPlanOutput schema
   agent: rover_planner

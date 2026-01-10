@@ -1,16 +1,57 @@
 [
   {
-    "id": "Rover1",
-    "location": "Base",
-    "energy": 100,
-    "speed": 5,
-    "terrain_compatibility": ["rocky", "sandy"]
+    "id": "rover_0",
+    "location": "N43",
+    "energy": 95,
+    "speed": 1.6,
+    "terrain_compatibility": [
+      "rocky",
+      "sandy",
+      "crater"
+    ]
   },
   {
-    "id": "Rover2",
-    "location": "Base",
-    "energy": 100,
-    "speed": 4,
-    "terrain_compatibility": ["rocky", "sandy", "icy"]
+    "id": "rover_1",
+    "location": "N16",
+    "energy": 94,
+    "speed": 2.45,
+    "terrain_compatibility": [
+      "plain",
+      "sandy",
+      "rocky"
+    ]
+  },
+  {
+    "id": "rover_2",
+    "location": "N43",
+    "energy": 76,
+    "speed": 2.64,
+    "terrain_compatibility": [
+      "plain",
+      "sandy",
+      "icy"
+    ]
+  },
+  {
+    "id": "rover_3",
+    "location": "N34",
+    "energy": 59,
+    "speed": 2.13,
+    "terrain_compatibility": [
+      "crater",
+      "icy",
+      "rocky"
+    ]
+  },
+  {
+    "id": "rover_4",
+    "location": "N16",
+    "energy": 80,
+    "speed": 1.75,
+    "terrain_compatibility": [
+      "plain",
+      "rocky",
+      "crater"
+    ]
   }
 ]

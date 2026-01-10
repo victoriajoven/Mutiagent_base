@@ -1,13 +1,7 @@
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, task, crew
+from mars_exploration_flow.tools.mission_files_tool import MissionFiles
 from mars_exploration_flow.types import MissionAnalysisOutput
-
-
-def save_markdown(task_output):
-    filename = 'src/mars_exploration_flow/outputs/mission_analysis.md'
-    with open(filename, 'w') as file:
-        file.write(task_output.raw)
-    print(f'Mission analysis saved as {filename}')
 
 
 # =========================
@@ -49,7 +43,8 @@ class MissionCrew:
             config=self.tasks_config["analyze_mission"],
             llm=self.llm,
             output_pydantic=MissionAnalysisOutput,
-            callback=save_markdown
+            callback=MissionFiles.set_mission_analysis,
+            markdown=True            
         )
 
     # ---------- Crew ----------
