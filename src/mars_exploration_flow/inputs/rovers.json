@@ -1,9 +1,16 @@
 [
   {
-    "id": "rover_1",
-    "location": "N1",
+    "id": "Rover1",
+    "location": "Base",
     "energy": 100,
-    "speed": 2,
+    "speed": 5,
     "terrain_compatibility": ["rocky", "sandy"]
+  },
+  {
+    "id": "Rover2",
+    "location": "Base",
+    "energy": 100,
+    "speed": 4,
+    "terrain_compatibility": ["rocky", "sandy", "icy"]
   }
 ]

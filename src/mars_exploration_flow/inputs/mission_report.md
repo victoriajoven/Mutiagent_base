@@ -1,14 +1,21 @@
-## Scientific Goals
-- Collect soil samples
-- Terrain analysis
+# Mars Exploration Mission Report
 
-## Constraints
-- Limited energy
-- Hazardous zones
+## Scientific Goals
+- Collect rock samples
+- Analyze soil composition
+- Survey terrain with drones
+
+## Operational Constraints
+- Rovers can only traverse rocky and sandy terrain
+- Drones have limited battery range
+- Avoid known hazardous areas
 
 ## Mission Priorities
 1. Sample collection
-2. Imaging
+2. Terrain survey
+3. Data transmission
 
 ## Known Hazards
-- Rocky areas
+- Sandstorms
+- Steep cliffs
+- Ice patches

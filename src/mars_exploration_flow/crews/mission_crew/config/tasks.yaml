@@ -7,3 +7,6 @@ analyze_mission:
     A structured analysis of the mission including goals, constraints,
     priorities, and hazards.
   agent: mission_analyst
+  input_files:
+    - src/mars_exploration_flow/inputs/mission_report.md
+

@@ -1,9 +1,16 @@
 [
   {
-    "id": "drone_1",
-    "location": "N5",
-    "range": 50,
-    "altitude": 100,
+    "id": "DroneA",
+    "location": "Base",
+    "range": 20,
+    "altitude": 10,
+    "camera_resolution": "HD"
+  },
+  {
+    "id": "DroneB",
+    "location": "Base",
+    "range": 15,
+    "altitude": 12,
     "camera_resolution": "HD"
   }
 ]

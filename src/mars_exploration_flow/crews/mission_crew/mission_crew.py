@@ -2,6 +2,14 @@ from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, task, crew
 from mars_exploration_flow.types import MissionAnalysisOutput
 
+
+def save_markdown(task_output):
+    filename = 'src/mars_exploration_flow/outputs/mission_analysis.md'
+    with open(filename, 'w') as file:
+        file.write(task_output.raw)
+    print(f'Mission analysis saved as {filename}')
+
+
 # =========================
 # Mission Crew Definition
 # =========================
@@ -23,6 +31,7 @@ class MissionCrew:
         api_key="NA",
         provider="ollama",
     )
+    
 
     # ---------- Agents ----------
     @agent
@@ -35,9 +44,12 @@ class MissionCrew:
 
     # ---------- Tasks ----------  
     @task
-    def plan_rover_path(self) -> Task:
+    def analyze_mission(self) -> Task:
         return Task(
-            config=self.tasks_config["analyze_mission"], output_pydantic=MissionAnalysisOutput
+            config=self.tasks_config["analyze_mission"],
+            llm=self.llm,
+            output_pydantic=MissionAnalysisOutput,
+            callback=save_markdown
         )
 
     # ---------- Crew ----------
