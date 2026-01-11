@@ -1,7 +1,8 @@
 import json
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, task, crew
-from mars_exploration_flow.tools.mars_map_tool import shortest_terrain_path
+
+from mars_exploration_flow.tools.mars_map_tool import RoverNavigationTool
 from mars_exploration_flow.tools.mission_files_tool import MissionFiles
 from mars_exploration_flow.types import RoverPlanOutput
 
@@ -31,8 +32,8 @@ class RoverCrew:
         return Agent(
             config=self.agents_config["rover_planner"],
             llm=self.llm,
-            tools=[shortest_terrain_path],
-            verbose=False,
+            tools=[RoverNavigationTool()],
+            verbose=True,
         )
 
     # ---------- Tasks ----------

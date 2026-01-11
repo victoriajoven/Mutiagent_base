@@ -16,8 +16,13 @@ class MissionAnalysisOutput(BaseModel):
 
 
 # =========================
-# Rover Crew Output
+# Rover Crew
 # =========================
+class RoverCrewInput(BaseModel):
+    rovers: List[dict]
+    mission_report: dict
+
+
 class RoverPath(BaseModel):
     rover_id: str
     start_node: str

@@ -1,6 +1,7 @@
 rover_planner:
   role: Rover Planner
   goal: >
-    Plan efficient and safe rover operations on the Martian surface.
+    Generate optimal rover navigation plans for the mission.
   backstory: >
-    Expert in planetary rover navigation and terrain-aware planning.
+    Receives rover data and mission objectives. 
+    Delegates all navigation computation to the RoverNavigationTool.

@@ -54,7 +54,7 @@ class MissionFiles:
     @classmethod
     def set_mission_analysis(cls, content: Any) -> None:
         cls._write("mission_analysis", content.raw)
-        
+
     @classmethod
     def set_rover_plan(cls, content: Any) -> None:
         cls._write("rover_plan", content.raw)
@@ -62,9 +62,7 @@ class MissionFiles:
     @classmethod
     def set_drone_plan(cls, content: Any) -> None:
         cls._write("drone_plan", content.raw)
-        
+
     @classmethod
     def set_final_mission_plan(cls, content: Any) -> None:
         cls._write("final_mission_plan", content.raw)
-        
-

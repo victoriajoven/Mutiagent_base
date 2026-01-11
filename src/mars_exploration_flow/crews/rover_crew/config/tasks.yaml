@@ -1,28 +1,22 @@
 plan_rover_operations:
   description: >
-    Generate a detailed rover operation plan considering this list of rovers: {rovers}.
-    Base your planning strictly on the information from {mission_analysis_file}.
+    You MUST call the tool `rover_navigation_plan`.
 
-    You MUST return ONLY valid JSON.
-    Do NOT include explanations, comments, markdown, or extra text.
+    The tool returns a JSON object matching RoverPlanOutput.
 
-    The JSON MUST strictly follow this structure:
+    CRITICAL RULES:
+    - DO NOT transform the tool output
+    - DO NOT summarize
+    - DO NOT add text
+    - DO NOT wrap the output
+    - Your FINAL ANSWER MUST BE exactly the JSON returned by the tool
+    - If you do not call the tool, the answer is INVALID
 
-    {
-      "rover_plans": [
-        {
-          "rover_id": "string",
-          "start_node": "string",
-          "end_node": "string",
-          "path": ["string"],
-          "distance": 0.0
-        }
-      ]
-    }
+    Inputs:
+    - rovers: {rovers}
+    - mission_report: {mission_analysis_file}
 
-    Do NOT include a "properties" field.
-    Do NOT include schema descriptions.
-    Output ONLY the JSON object.
+    Return ONLY the tool result.
   expected_output: >
-    A valid JSON object strictly matching the RoverPlanOutput schema.
+    A JSON object matching RoverPlanOutput exactly.
   agent: rover_planner

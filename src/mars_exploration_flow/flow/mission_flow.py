@@ -15,33 +15,41 @@ class MarsMissionFlow(Flow):
         3. Integration Crew
     """
 
+    def __init__(self, persistence=None, tracing=None, suppress_flow_events=False, **kwargs):
+        super().__init__(persistence, tracing, suppress_flow_events, **kwargs)
+        self.mission_analysis_output: str = "{}"
+
     @start()
     def run_mission_crew(self):
         print("🛰️ Running Mission Crew...")
-        # MissionCrew().crew().kickoff(
-        #     inputs={"mission_report": MissionFiles.get_mission_report()})
+        result = MissionCrew().crew().kickoff(
+            inputs={"mission_report": MissionFiles.get_mission_report()})
+        self.mission_analysis_output = result.pydantic.model_dump_json()
         return "mission_analysis_completed"
 
     @listen(run_mission_crew)
     def run_rover_crew(self, _):
         print("🚙 Running Rover Crew...")
-        RoverCrew().crew().kickoff(inputs={"rovers": MissionFiles.get_rovers(
-        ), "mission_analysis_file": MissionFiles.get_mission_analysis()})
+        # From files
+        # result = RoverCrew().crew().kickoff(inputs={"rovers": MissionFiles.get_rovers(), "mission_analysis_file": MissionFiles.get_mission_analysis()})
+        # From flow
+        result = RoverCrew().crew().kickoff(inputs={"rovers": MissionFiles.get_rovers(
+        ), "mission_analysis_file": self.mission_analysis_output})
         return "rover_planning_completed"
 
     @listen(run_mission_crew)
     def run_drone_crew(self, _):
         print("🚁 Running Drone Crew...")
-        DroneCrew().crew().kickoff(inputs={"drones": MissionFiles.get_drones(
-        ), "mission_analysis_file": MissionFiles.get_mission_analysis()})
+        # DroneCrew().crew().kickoff(inputs={"drones": MissionFiles.get_drones(
+        # ), "mission_analysis_file": MissionFiles.get_mission_analysis()})
         return "drone_planning_completed"
 
     @listen(run_rover_crew)
     @listen(run_drone_crew)
     def run_integration_crew(self, _):
         print("🧩 Running Integration Crew...")
-        IntegrationCrew().crew().kickoff(inputs={"mission_analysis": MissionFiles.get_mission_analysis(),
-                                                 "rover_plan": MissionFiles.get_rover_plan(),
-                                                 "drone_plan": MissionFiles.get_drone_plan()
-                                                 },)
+        # IntegrationCrew().crew().kickoff(inputs={"mission_analysis": MissionFiles.get_mission_analysis(),
+        #                                          "rover_plan": MissionFiles.get_rover_plan(),
+        #                                          "drone_plan": MissionFiles.get_drone_plan()
+        #                                          },)
         return "mission_integration_completed"
