@@ -1,14 +1,22 @@
 plan_drone_missions:
   description: >
-    Design drone flight plans for aerial surveys considering considering this drone list {drones}.
-    Its fundamental evaluation of {mission_analysis_file}
-    IMPORTANT:
-    - Your response MUST be valid JSON
-    - All numeric fields MUST contain final numeric values
-    - DO NOT include formulas, variables, or function calls
-    - DO NOT explain calculations
-    - DO NOT include text outside the JSON object
-    If a value must be estimated, provide a reasonable numeric estimate.
+    You MUST call the tool `drone_navigation_plan`.
+
+    The tool returns a JSON object matching DronePlanOutput.
+
+    CRITICAL RULES:
+    - DO NOT transform the tool output
+    - DO NOT summarize
+    - DO NOT add text
+    - DO NOT wrap the output
+    - Your FINAL ANSWER MUST BE exactly the JSON returned by the tool
+    - If you do not call the tool, the answer is INVALID
+
+    Inputs:
+    - drones: {drones}
+    - mission_report: {mission_analysis_file}
+
+    Return ONLY the tool result.
   expected_output: >
-    Show DronePlanOutput schema and a structured drone flight plan with survey areas and schedules as a JSON object matching the DronePlanOutput schema
+    A JSON object matching DronePlanOutput exactly.
   agent: drone_planner

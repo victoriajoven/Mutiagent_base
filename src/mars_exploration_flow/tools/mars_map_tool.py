@@ -5,21 +5,33 @@ import networkx as nx
 from typing import ClassVar, Dict
 
 
-from mars_exploration_flow.types import RoverPlanOutput, RoverPath
+from mars_exploration_flow.types import (
+    DronePath,
+    DronePlanOutput,
+    RoverPlanOutput,
+    RoverPath,
+)
 
 
 # =========================
 # Tool Input Schema
 # =========================
 
+
 class RoverNavigationInput(BaseModel):
     rovers: List[Dict]
+    mission_report: Dict
+
+
+class DroneNavigationInput(BaseModel):
+    drones: List[Dict]
     mission_report: Dict
 
 
 # =========================
 # Tool Implementation
 # =========================
+
 
 class RoverNavigationTool(BaseTool):
     name: str = "rover_navigation_plan"
@@ -57,7 +69,7 @@ class RoverNavigationTool(BaseTool):
 
         objectives = sorted(
             mission_report.get("objectives", []),
-            key=lambda o: self.priority_order.get(o["priority"], 99)
+            key=lambda o: self.priority_order.get(o["priority"], 99),
         )
 
         print("🔥 TOOL CALLED")
@@ -120,3 +132,109 @@ class RoverNavigationTool(BaseTool):
             )
 
         return RoverPlanOutput(rover_plans=rover_plans)
+
+
+class DroneNavigationTool(BaseTool):
+    name: str = "drone_navigation_plan"
+    description: str = (
+        "Compute an optimal drone navigation plan considering "
+        "flight range, altitude, camera resolution and mission objectives."
+    )
+
+    args_schema: Type[DroneNavigationInput] = DroneNavigationInput
+
+    graph_path: str = "src/mars_exploration_flow/inputs/mars_terrain.graphml"
+
+    priority_order: ClassVar[Dict[str, int]] = {
+        "high": 0,
+        "medium": 1,
+        "low": 2,
+    }
+
+    CAMERA_SCORE: ClassVar[Dict[str, float]] = {
+        "12MP": 1.0,
+        "15MP": 1.3,
+        "20MP": 1.6,
+    }
+
+    _G: nx.Graph = PrivateAttr()
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        self._G = nx.read_graphml(self.graph_path)
+
+    # =========================
+    # Main logic
+    # =========================
+    def _run(self, drones, mission_report) -> DronePlanOutput:
+        drone_plans: List[DronePath] = []
+
+        objectives = sorted(
+            mission_report.get("objectives", []),
+            key=lambda o: self.priority_order.get(o["priority"], 99),
+        )
+
+        for drone in drones:
+            start = drone["location"]
+            current = start
+            path: List[str] = [start]
+            total_distance = 0.0
+
+            for obj in objectives:
+                target = obj["node"]
+
+                segment = nx.shortest_path(self._G, current, target, weight="distance")
+                segment_distance = nx.shortest_path_length(
+                    self._G, current, target, weight="distance"
+                )
+
+                # 🚨 Drone constraint: must return to base
+                if total_distance + segment_distance * 2 > drone["range"]:
+                    continue
+
+                # 🎥 Observation quality check
+                if not self._valid_observation(drone, obj):
+                    continue
+
+                path.extend(segment[1:])
+                total_distance += segment_distance
+                current = target
+
+            # 🔁 Mandatory return
+            if current != start:
+                return_segment = nx.shortest_path(
+                    self._G, current, start, weight="distance"
+                )
+                return_distance = nx.shortest_path_length(
+                    self._G, current, start, weight="distance"
+                )
+                path.extend(return_segment[1:])
+                total_distance += return_distance
+
+            drone_plans.append(
+                DronePath(
+                    drone_id=drone["id"],
+                    start_node=start,
+                    end_node=start,
+                    path=path,
+                    distance=round(total_distance, 2),
+                )
+            )
+
+        return DronePlanOutput(drone_plans=drone_plans)
+
+    # =========================
+    # Helpers
+    # =========================
+    def _valid_observation(self, drone: Dict, objective: Dict) -> bool:
+        score = self.CAMERA_SCORE.get(drone["camera_resolution"], 1.0)
+
+        if objective["type"] == "panoramic":
+            if drone["altitude"] < 150:
+                score *= 0.7
+
+        elif objective["type"] == "radiation":
+            if drone["altitude"] > 300:
+                score *= 0.8
+
+        return score >= 0.8

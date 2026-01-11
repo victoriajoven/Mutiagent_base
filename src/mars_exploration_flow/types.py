@@ -39,16 +39,16 @@ class RoverPlanOutput(BaseModel):
 # =========================
 
 
-class DroneFlightPlan(BaseModel):
+class DronePath(BaseModel):
     drone_id: str
-    survey_areas: List[str]
-    flight_altitude: int
-    estimated_duration: int
+    start_node: str
+    end_node: str
+    path: List[str]
+    distance: float
 
 
 class DronePlanOutput(BaseModel):
-    drone_flights: List[DroneFlightPlan]
-    coverage_objectives: List[str]
+    drone_plans: List[DronePath]
 
 
 # =========================

@@ -2,7 +2,10 @@ import json
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, task, crew
 
-from mars_exploration_flow.tools.mars_map_tool import RoverNavigationTool
+from mars_exploration_flow.tools.mars_map_tool import (
+    DroneNavigationTool,
+    RoverNavigationTool,
+)
 from mars_exploration_flow.tools.mission_files_helper import MissionFiles
 from mars_exploration_flow.types import DronePlanOutput
 
@@ -31,7 +34,7 @@ class DroneCrew:
         return Agent(
             config=self.agents_config["drone_planner"],
             llm=self.llm,
-            tools=[RoverNavigationTool()],
+            tools=[DroneNavigationTool()],
             verbose=True,
         )
 
@@ -43,7 +46,7 @@ class DroneCrew:
             llm=self.llm,
             output_pydantic=DronePlanOutput,
             callback=MissionFiles.set_drone_plan,
-            markdown=True
+            markdown=True,
         )
 
     # ---------- Crew ----------
