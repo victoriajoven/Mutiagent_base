@@ -3,3 +3,4 @@ LiteLLM
 litellm[proxy]
 fastapi
 crewai[tools]
+networkx

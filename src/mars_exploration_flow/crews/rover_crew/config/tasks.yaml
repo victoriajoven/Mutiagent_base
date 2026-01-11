@@ -1,13 +1,28 @@
 plan_rover_operations:
   description: >
-    Generate a detailed rover operation plan considering this list of rovers {rovers}.
-    Its fundamental evaluation of {mission_analysis_file}
-    IMPORTANT:
-    - Your response MUST be valid JSON
-    - Do NOT include explanations, comments, or markdown
-    - Do NOT include text outside the JSON object
-    - The JSON MUST strictly follow the RoverPlanOutput schema
+    Generate a detailed rover operation plan considering this list of rovers: {rovers}.
+    Base your planning strictly on the information from {mission_analysis_file}.
 
+    You MUST return ONLY valid JSON.
+    Do NOT include explanations, comments, markdown, or extra text.
+
+    The JSON MUST strictly follow this structure:
+
+    {
+      "rover_plans": [
+        {
+          "rover_id": "string",
+          "start_node": "string",
+          "end_node": "string",
+          "path": ["string"],
+          "distance": 0.0
+        }
+      ]
+    }
+
+    Do NOT include a "properties" field.
+    Do NOT include schema descriptions.
+    Output ONLY the JSON object.
   expected_output: >
-    A structured rover plan including assigned tasks and paths as a JSON object matching the RoverPlanOutput schema
+    A valid JSON object strictly matching the RoverPlanOutput schema.
   agent: rover_planner

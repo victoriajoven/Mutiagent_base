@@ -18,8 +18,8 @@ class MarsMissionFlow(Flow):
     @start()
     def run_mission_crew(self):
         print("🛰️ Running Mission Crew...")
-        MissionCrew().crew().kickoff(
-            inputs={"mission_report": MissionFiles.get_mission_report()})
+        # MissionCrew().crew().kickoff(
+        #     inputs={"mission_report": MissionFiles.get_mission_report()})
         return "mission_analysis_completed"
 
     @listen(run_mission_crew)

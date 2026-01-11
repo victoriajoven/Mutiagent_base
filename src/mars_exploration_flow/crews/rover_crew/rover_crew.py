@@ -1,6 +1,7 @@
 import json
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, task, crew
+from mars_exploration_flow.tools.mars_map_tool import shortest_terrain_path
 from mars_exploration_flow.tools.mission_files_tool import MissionFiles
 from mars_exploration_flow.types import RoverPlanOutput
 
@@ -12,9 +13,9 @@ class RoverCrew:
     Responsible for planning rover operations based on
     mission analysis and terrain constraints.
     """
-    
+
     agents_config = "config/agents.yaml"
-    tasks_config = "config/tasks.yaml"   
+    tasks_config = "config/tasks.yaml"
 
     llm = LLM(
         model="ollama/mistral",
@@ -30,7 +31,8 @@ class RoverCrew:
         return Agent(
             config=self.agents_config["rover_planner"],
             llm=self.llm,
-            verbose=True,
+            tools=[shortest_terrain_path],
+            verbose=False,
         )
 
     # ---------- Tasks ----------
@@ -42,7 +44,7 @@ class RoverCrew:
             llm=self.llm,
             output_pydantic=RoverPlanOutput,
             callback=MissionFiles.set_rover_plan,
-            markdown=True  
+            markdown=True,
         )
 
     # ---------- Crew ----------

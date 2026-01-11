@@ -1,63 +1,65 @@
 ```markdown
 {
-  "mission_summary": "A comprehensive mission strategy combining rover and drone plans to achieve scientific goals while adhering to operational constraints and mission priorities.",
+  "mission_summary": "A coherent mission strategy integrating rover and drone plans to meet scientific goals within operational constraints.",
+
   "coordinated_actions": [
     {
       "vehicle_id": "rover_0",
-      "action": "Capture panoramic images of crater terrain at node N5",
-      "time_window": "Immediately upon rover arrival at N43"
+      "action": "Recharge",
+      "time_window": "Immediate"
     },
     {
       "vehicle_id": "rover_1",
-      "action": "Measure radiation levels in sandy terrain at node N90",
-      "time_window": "Upon rover arrival at N16, if energy level is above 30%"
+      "action": "Proceed to N87, then N90 for radiation measurement",
+      "time_window": "After rover_0's recharge"
     },
     {
       "vehicle_id": "rover_2",
-      "action": "Analyze ice composition in icy terrain at nodes N22 and N23",
-      "time_window": "Upon rover arrival at N43, if energy level is above 30%, and after rover_4 completes its tasks"
+      "action": "Proceed to N27, then N22 and N23 for ice analysis",
+      "time_window": "Simultaneous with rover_1's radiation measurement"
     },
     {
       "vehicle_id": "rover_3",
-      "action": "Collect subsurface samples from rocky terrain near nodes N12, N45, and N78",
-      "time_window": "Upon rover arrival at N34, if energy level is above 30%, with priority given to N12"
+      "action": "Proceed to N70, then N62, N78, N117, N130, N123, N112, N124, N125, N126, N127, N128, N129 for subsurface sampling",
+      "time_window": "After completion of rover_1 and rover_2 tasks"
     },
     {
       "vehicle_id": "rover_4",
-      "action": "Collect subsurface samples from rocky terrain near node N12 and analyze ice composition in icy terrain at node N23",
-      "time_window": "Upon rover arrival at N16, if energy level is above 30%, with priority given to ice analysis"
+      "action": "Proceed to N28, then N37, N45, N68, N69, N55, N56, N57, N5 for panoramic imaging and subsurface sampling at N45",
+      "time_window": "After completion of rover_1, rover_2, and rover_3 tasks"
     },
     {
       "vehicle_id": "drone_0",
-      "action": "Survey area around node N8",
-      "time_window": "After rover tasks are completed or during rover recharge periods, if communication is possible"
+      "action": "Survey N23, then N90",
+      "time_window": "Concurrent with rovers' tasks"
     },
     {
       "vehicle_id": "drone_1",
-      "action": "Survey area around node N3",
-      "time_window": "After drone_0 completes its task or during rover recharge periods, if communication is possible"
+      "action": "Survey N22",
+      "time_window": "Concurrent with rover_2's task"
     },
     {
       "vehicle_id": "drone_2",
-      "action": "Survey area around node N24",
-      "time_window": "After drone_1 completes its task or during rover recharge periods, if communication is possible"
+      "action": "Survey N5",
+      "time_window": "Concurrent with rover_4's task"
     },
     {
       "vehicle_id": "drone_3",
-      "action": "Survey area around node N74",
-      "time_window": "After drone_2 completes its task or during rover recharge periods, if communication is possible"
+      "action": "Survey N12, N45, N78",
+      "time_window": "After completion of rovers' tasks"
     },
     {
       "vehicle_id": "drone_4",
-      "action": "Survey area around node N52",
-      "time_window": "After drone_3 completes its task or during rover recharge periods, if communication is possible"
+      "action": "Survey N90",
+      "time_window": "Concurrent with rover_1's task"
     }
   ],
+
   "risk_mitigation_strategies": [
-    "Prioritizing high-priority tasks to maximize scientific output",
-    "Avoiding node N60 when possible and recharging rovers before traversing the unstable rocky terrain",
-    "Avoiding node N88 when possible due to operational constraints",
-    "Adjusting drone survey schedules based on communication capabilities with the base station"
+    "Rover_0 will recharge before joining other tasks as assumed in the rover plan.",
+    "Rover operations at N33 will be monitored for dust storm impact.",
+    "Drones will return to base after 25 minutes of flight as per operational constraints.",
+    "Rovers and drones will avoid unstable or radioactive terrain encountered on the planned paths as assumed in both plans."
   ]
 }
 ```

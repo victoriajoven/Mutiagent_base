@@ -1,8 +1,10 @@
 import json
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, task, crew
+from mars_exploration_flow.tools.mars_map_tool import shortest_terrain_path
 from mars_exploration_flow.tools.mission_files_tool import MissionFiles
 from mars_exploration_flow.types import DronePlanOutput
+
 
 @CrewBase
 class DroneCrew:
@@ -10,8 +12,6 @@ class DroneCrew:
     Drone Crew:
     Responsible for planning drone flights for aerial surveys.
     """
-
-    
 
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
@@ -30,6 +30,7 @@ class DroneCrew:
         return Agent(
             config=self.agents_config["drone_planner"],
             llm=self.llm,
+            tools=[shortest_terrain_path],
             verbose=True,
         )
 

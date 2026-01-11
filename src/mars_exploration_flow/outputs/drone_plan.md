@@ -3,41 +3,44 @@
   "drone_flights": [
     {
       "drone_id": "drone_0",
-      "survey_areas": ["N8"],
+      "survey_areas": ["N23"],
       "flight_altitude": 402,
-      "estimated_duration": 5
+      "estimated_duration": 18
+    },
+    {
+      "drone_id": "drone_0",
+      "survey_areas": ["N90"],
+      "flight_altitude": 402,
+      "estimated_duration": 25
     },
     {
       "drone_id": "drone_1",
-      "survey_areas": ["N3"],
+      "survey_areas": ["N22"],
       "flight_altitude": 214,
-      "estimated_duration": 3
+      "estimated_duration": 20
     },
     {
       "drone_id": "drone_2",
-      "survey_areas": ["N24"],
+      "survey_areas": ["N5"],
       "flight_altitude": 131,
-      "estimated_duration": 4
+      "estimated_duration": 10
     },
     {
       "drone_id": "drone_3",
-      "survey_areas": ["N74"],
+      "survey_areas": ["N12", "N45", "N78"],
       "flight_altitude": 285,
-      "estimated_duration": 6
+      "estimated_duration": 30
     },
     {
       "drone_id": "drone_4",
-      "survey_areas": ["N52"],
+      "survey_areas": ["N90"],
       "flight_altitude": 176,
-      "estimated_duration": 4
+      "estimated_duration": 25
     }
   ],
   "coverage_objectives": [
-    "Panoramic images of crater terrain at node N5",
-    "Measure radiation levels in sandy terrain at node N90",
-    "Analyze ice composition in icy terrain at nodes N22 and N23",
-    "Collect subsurface samples from rocky terrain near nodes N12, N45, and N78",
-    "Collect subsurface samples from rocky terrain near node N12 and analyze ice composition in icy terrain at node N23"
+    "Ice analysis at N22-N23",
+    "Radiation measurement at N90"
   ]
 }
 ```

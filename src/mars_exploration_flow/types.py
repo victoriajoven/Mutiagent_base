@@ -8,30 +8,26 @@ from typing import List, Dict
 
 class MissionAnalysisOutput(BaseModel):
     scientific_goals: List[str] = Field(description="Scientific objectives")
-    operational_constraints: List[str] = Field(description="Operational constraints")
-    mission_priorities: List[str] = Field(description="Mission priorities ordered")
+    operational_constraints: List[str] = Field(
+        description="Operational constraints")
+    mission_priorities: List[str] = Field(
+        description="Mission priorities ordered")
     known_hazards: List[str] = Field(description="Known hazards")
 
 
 # =========================
 # Rover Crew Output
 # =========================
-
-class RoverTaskPlan(BaseModel):
-    rover_id: str = Field(description="Identifier of the rover")
-    assigned_tasks: List[str] = Field(description="Tasks assigned to the rover")
-    planned_path: List[str] = Field(
-        description="Sequence of terrain nodes representing the rover path"
-    )
+class RoverPath(BaseModel):
+    rover_id: str
+    start_node: str
+    end_node: str
+    path: List[str]
+    distance: float
 
 
 class RoverPlanOutput(BaseModel):
-    rover_plans: List[RoverTaskPlan] = Field(
-        description="Detailed plans for each rover"
-    )
-    assumptions: List[str] = Field(
-        description="Assumptions made during rover planning"
-    )
+    rover_plans: List[RoverPath]
 
 
 # =========================
@@ -39,23 +35,15 @@ class RoverPlanOutput(BaseModel):
 # =========================
 
 class DroneFlightPlan(BaseModel):
-    drone_id: str = Field(description="Identifier of the drone")
-    survey_areas: List[str] = Field(
-        description="Areas or nodes surveyed by the drone"
-    )
-    flight_altitude: int = Field(description="Planned flight altitude")
-    estimated_duration: int = Field(
-        description="Estimated flight duration in minutes"
-    )
+    drone_id: str
+    survey_areas: List[str]
+    flight_altitude: int
+    estimated_duration: int
 
 
 class DronePlanOutput(BaseModel):
-    drone_flights: List[DroneFlightPlan] = Field(
-        description="Planned drone flight missions"
-    )
-    coverage_objectives: List[str] = Field(
-        description="Objectives achieved through aerial surveys"
-    )
+    drone_flights: List[DroneFlightPlan]
+    coverage_objectives: List[str]
 
 
 # =========================
