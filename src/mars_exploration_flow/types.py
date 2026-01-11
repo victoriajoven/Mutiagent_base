@@ -1,17 +1,16 @@
 from pydantic import BaseModel, Field
-from typing import List, Dict
+from typing import List, Optional
 
 
 # =========================
 # Mission Crew Output
 # =========================
 
+
 class MissionAnalysisOutput(BaseModel):
     scientific_goals: List[str] = Field(description="Scientific objectives")
-    operational_constraints: List[str] = Field(
-        description="Operational constraints")
-    mission_priorities: List[str] = Field(
-        description="Mission priorities ordered")
+    operational_constraints: List[str] = Field(description="Operational constraints")
+    mission_priorities: List[str] = Field(description="Mission priorities ordered")
     known_hazards: List[str] = Field(description="Known hazards")
 
 
@@ -39,6 +38,7 @@ class RoverPlanOutput(BaseModel):
 # Drone Crew Output
 # =========================
 
+
 class DroneFlightPlan(BaseModel):
     drone_id: str
     survey_areas: List[str]
@@ -54,6 +54,7 @@ class DronePlanOutput(BaseModel):
 # =========================
 # Integration Crew Output
 # =========================
+
 
 class CoordinatedAction(BaseModel):
     vehicle_id: str = Field(description="ID of the vehicle (rover or drone)")
@@ -73,3 +74,23 @@ class FinalMissionPlanOutput(BaseModel):
     risk_mitigation_strategies: List[str] = Field(
         description="Strategies to mitigate identified mission risks"
     )
+
+
+# =========================
+# Mission Flow State
+# =========================
+
+
+class MissionInputs(BaseModel):
+    rovers: list[dict] = []
+    drones: list[dict] = []
+    mission_report: str = ""
+
+
+class MissionState(BaseModel):
+    id: str = []
+    load_from_files: bool = False
+    inputs: MissionInputs = MissionInputs()
+    rover_plan: Optional[RoverPlanOutput] = None
+    drone_plan: Optional[DronePlanOutput] = None
+    mission_analysis: Optional[MissionAnalysisOutput] = None

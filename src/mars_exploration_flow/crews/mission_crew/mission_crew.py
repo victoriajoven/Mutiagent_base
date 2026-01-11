@@ -1,6 +1,6 @@
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, task, crew
-from mars_exploration_flow.tools.mission_files_tool import MissionFiles
+from mars_exploration_flow.tools.mission_files_helper import MissionFiles
 from mars_exploration_flow.types import MissionAnalysisOutput
 
 
@@ -15,7 +15,7 @@ class MissionCrew:
     Responsible for analyzing the mission report and extracting
     structured mission requirements.
     """
-    
+
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
 
@@ -25,9 +25,9 @@ class MissionCrew:
         api_key="NA",
         provider="ollama",
     )
-    
 
     # ---------- Agents ----------
+
     @agent
     def mission_analyst(self) -> Agent:
         return Agent(
@@ -36,7 +36,7 @@ class MissionCrew:
             verbose=True,
         )
 
-    # ---------- Tasks ----------  
+    # ---------- Tasks ----------
     @task
     def analyze_mission(self) -> Task:
         return Task(
@@ -44,7 +44,7 @@ class MissionCrew:
             llm=self.llm,
             output_pydantic=MissionAnalysisOutput,
             callback=MissionFiles.set_mission_analysis,
-            markdown=True            
+            markdown=True
         )
 
     # ---------- Crew ----------

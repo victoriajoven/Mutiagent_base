@@ -3,7 +3,7 @@ from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, task, crew
 
 from mars_exploration_flow.tools.mars_map_tool import RoverNavigationTool
-from mars_exploration_flow.tools.mission_files_tool import MissionFiles
+from mars_exploration_flow.tools.mission_files_helper import MissionFiles
 from mars_exploration_flow.types import RoverPlanOutput
 
 
